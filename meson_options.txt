@@ -18,7 +18,7 @@ option('doxygen',
 option('gtk_doc', 
   type: 'boolean', 
   value: false, 
-  description: 'Build GTK-doc documentation')
+  description: 'Build documentation with gi-docgen')
 
 option('modules', 
   type: 'feature', 
