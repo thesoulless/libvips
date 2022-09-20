@@ -1,13 +1,4 @@
-  <refmeta>
-    <refentrytitle>Examples</refentrytitle>
-    <manvolnum>3</manvolnum>
-    <refmiscinfo>libvips</refmiscinfo>
-  </refmeta>
-
-  <refnamediv>
-    <refname>libvips examples</refname>
-    <refpurpose>A few example Python programs using libvips</refpurpose>
-  </refnamediv>
+Title: A few example Python programs using libvips
 
 This page shows a few libvips examples using Python. They will work with
 small syntax changes in any language with a libvips binding.
@@ -53,50 +44,16 @@ if len(sys.argv) != 3:
     print(f'usage: {sys.argv[0]} input-filename output-filename')
     sys.exit(-1)
 
-# map vips formats to np dtypes
-format_to_dtype = {
-    'uchar': np.uint8,
-    'char': np.int8,
-    'ushort': np.uint16,
-    'short': np.int16,
-    'uint': np.uint32,
-    'int': np.int32,
-    'float': np.float32,
-    'double': np.float64,
-    'complex': np.complex64,
-    'dpcomplex': np.complex128,
-}
-
-# map np dtypes to vips
-dtype_to_format = {
-    'uint8': 'uchar',
-    'int8': 'char',
-    'uint16': 'ushort',
-    'int16': 'short',
-    'uint32': 'uint',
-    'int32': 'int',
-    'float32': 'float',
-    'float64': 'double',
-    'complex64': 'complex',
-    'complex128': 'dpcomplex',
-}
-
 # load with PIL
 start_pillow = time.time()
 pillow_img = np.asarray(Image.open(sys.argv[1]))
 print('Pillow Time:', time.time()-start_pillow)
 print('original shape', pillow_img.shape)
 
-# load with vips to a memory array
+# load with vips to a numpy array
 start_vips = time.time()
 img = pyvips.Image.new_from_file(sys.argv[1], access='sequential')
-mem_img = img.write_to_memory()
-
-# then make a numpy array from that buffer object
-np_3d = np.ndarray(buffer=mem_img,
-                   dtype=format_to_dtype[img.format],
-                   shape=[img.height, img.width, img.bands])
-
+np_3d = img.numpy()
 print('Vips Time:', time.time()-start_vips)
 print('final shape', np_3d.shape)
 
@@ -104,10 +61,7 @@ print('final shape', np_3d.shape)
 print('Sum of the Differences:', np.sum(np_3d-pillow_img))
 
 # make a vips image from the numpy array
-height, width, bands = np_3d.shape
-linear = np_3d.reshape(width * height * bands)
-vi = pyvips.Image.new_from_memory(linear.data, width, height, bands,
-                                  dtype_to_format[str(np_3d.dtype)])
+vi = pyvips.Image.new_from_array(np_3d)
 
 # and write back to disc for checking
 vi.write_to_file(sys.argv[2])
