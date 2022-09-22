@@ -1,6 +1,7 @@
 gidocgen = find_program('gi-docgen', required: get_option('gtk_doc'))
 
 vips_content_files = [
+  'file-format.md',
   'extending.md',
   'using-C.md',
   'using-command-line.md',
