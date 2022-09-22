@@ -1,5 +1,7 @@
 Title: Writing bindings for libvips
 
+# Writing bindings for libvips
+
 There are full libvips bindings for quite a few environments now, including
 C, C++, command-line, Ruby, PHP, Lua, Python, Crystal, Elixir, and JavaScript
 (node).
@@ -8,7 +10,7 @@ This chapter runs through the four main styles that have been found to work
 well. If you want to write a new binding, one of these should be close
 to what you need. 
 
-# Don't bind the top-level C API
+## Don't bind the top-level C API
 
 The libvips C API ([func@add] and so on) was designed to be easy for humans
 to write. It is inconvenient and dangerous to use from other languages due
@@ -121,7 +123,7 @@ main( int argc, char **argv )
 }
 ```
 
-# Compiled language which can call C
+## Compiled language which can call C
 
 The C++ binding uses this lower layer to define a function called
 `VImage::call()` which can call any libvips operator with a set of variable
@@ -150,7 +152,7 @@ to get type-checked calls for at least the required operator arguments.
 The `VImage` class also adds automatic reference counting, constant expansion,
 operator overloads, and various other useful features.
 
-# Dynamic language with FFI
+## Dynamic language with FFI
 
 Languages like Ruby, Python, JavaScript and LuaJIT can't call C directly, but
 they do support FFI. The bindings for these languages work rather like C++,
@@ -161,13 +163,13 @@ the method-missing hook and attempt to run any method calls not implemented by
 the `Image` class as libvips operators. In effect, the binding is generated at
 runtime.
 
-# Dynamic language without FFI
+## Dynamic language without FFI
 
 PHP does not have a useful FFI, unfortunately, so for this language a small
 C module implements the general `vips_call()` function for PHP language
 types, and a larger pure PHP layer makes it convenient to use.
 
-# gobject-introspection
+## gobject-introspection
 
 The C source code to libvips has been marked up with special comments
 describing the interface in a standard way. These comments are read by
@@ -192,7 +194,7 @@ users is likely to be tricky.
 
 If you have a choice, I would recommend simply using FFI. 
 
-# Documentation
+## Documentation
 
 You can generate searchable docs from a `.gir` (the thing that is built
 from scanning libvips and which in turn turn the typelib is made from) with
