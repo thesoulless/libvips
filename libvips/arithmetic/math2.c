@@ -250,7 +250,7 @@ vips_math2v( VipsImage *left, VipsImage *right, VipsImage **out,
 }
 
 /**
- * vips_math2:
+ * vips_math2: (method)
  * @left: left-hand input #VipsImage
  * @right: right-hand input #VipsImage
  * @out: (out): output #VipsImage
@@ -297,7 +297,7 @@ vips_math2( VipsImage *left, VipsImage *right, VipsImage **out,
 }
 
 /**
- * vips_pow:
+ * vips_pow: (method)
  * @left: left-hand input #VipsImage
  * @right: right-hand input #VipsImage
  * @out: (out): output #VipsImage
@@ -322,7 +322,7 @@ vips_pow( VipsImage *left, VipsImage *right, VipsImage **out, ... )
 }
 
 /**
- * vips_wop:
+ * vips_wop: (method)
  * @left: left-hand input #VipsImage
  * @right: right-hand input #VipsImage
  * @out: (out): output #VipsImage
@@ -347,7 +347,7 @@ vips_wop( VipsImage *left, VipsImage *right, VipsImage **out, ... )
 }
 
 /**
- * vips_atan2:
+ * vips_atan2: (method)
  * @left: left-hand input #VipsImage
  * @right: right-hand input #VipsImage
  * @out: (out): output #VipsImage

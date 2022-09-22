@@ -571,7 +571,7 @@ vips_complex2v( VipsImage *left, VipsImage *right, VipsImage **out,
 }
 
 /**
- * vips_complex2:
+ * vips_complex2: (method)
  * @left: input #VipsImage
  * @right: input #VipsImage
  * @out: (out): output #VipsImage
@@ -600,7 +600,7 @@ vips_complex2( VipsImage *left, VipsImage *right, VipsImage **out,
 }
 
 /**
- * vips_cross_phase:
+ * vips_cross_phase: (method)
  * @left: input #VipsImage
  * @right: input #VipsImage
  * @out: (out): output #VipsImage
@@ -979,7 +979,7 @@ vips_complexform_init( VipsComplexform *complexform )
 }
 
 /**
- * vips_complexform:
+ * vips_complexform: (method)
  * @left: input image 
  * @right: input image 
  * @out: (out): output image

@@ -246,7 +246,7 @@ vips_dE00_init( VipsdE00 *dE00 )
 }
 
 /**
- * vips_dE00:
+ * vips_dE00: (method)
  * @left: first input image
  * @right: second input image
  * @out: output image
