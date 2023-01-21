@@ -758,7 +758,6 @@ vips_reducev_raw( VipsReducev *reducev, VipsImage *in, int height,
 		generate = vips_reducev_vector_gen;
 	}
 
-	*out = vips_image_new();
 	if( vips_image_pipelinev( *out, 
 		VIPS_DEMAND_STYLE_THINSTRIP, in, (void *) NULL ) )
 		return( -1 );
@@ -796,7 +795,8 @@ vips_reducev_build( VipsObject *object )
 	VipsObjectClass *object_class = VIPS_OBJECT_GET_CLASS( object );
 	VipsResample *resample = VIPS_RESAMPLE( object );
 	VipsReducev *reducev = (VipsReducev *) object;
-	VipsImage **t = (VipsImage **) vips_object_local_array( object, 3 );
+	VipsImage **t = (VipsImage **)
+		vips_object_local_array( object, 3 );
 
 	VipsImage *in;
 	int height;
@@ -913,12 +913,8 @@ vips_reducev_build( VipsObject *object )
 		return( -1 );
 	in = t[2];
 
-	if( vips_reducev_raw( reducev, in, height, &t[3] ) )
+	if( vips_reducev_raw( reducev, in, height, &resample->out ) )
 		return( -1 );
-	in = t[3];
-
-	if( vips_image_write( in, resample->out ) )
-		return( -1 ); 
 
 	return( 0 );
 }
