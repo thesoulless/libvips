@@ -162,6 +162,12 @@ vips_sequential_generate( VipsRegion *or,
 
 		sequential->y_pos = VIPS_RECT_BOTTOM( &area );
 	}
+	else if( VIPS_RECT_BOTTOM( r ) < sequential->y_pos ) {
+		//printf( "prev height: %d\n", r->height );
+		r->height = sequential->y_pos - r->top;
+		//printf( "new height: %d\n", r->height );
+		// FIXME(kleisauke): Could we bump max_tiles here?
+	}
 
 	/* This is a request for old or present pixels -- serve from cache.
 	 * This may trigger further, sequential reads.
